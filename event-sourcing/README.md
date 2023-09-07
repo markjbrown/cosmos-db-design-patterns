@@ -27,7 +27,7 @@ While event sourcing can be implemented with various types of databases, this is
 
 This sample demonstrates:
 
-- ✅ This will show how to create an Azure Function that will simulate shopping cart events for an event sourcing pattern which appends events to Azure Cosmos DB.
+- ✅ This will show how to create an Azure Function that will simulate an HTTP endpoint for capturing shopping cart events, then append those events to a container of `CartEvents` in Azure Cosmos DB.
 
 ## Common scenario
 
@@ -134,7 +134,7 @@ First, check the .NET runtime with this command:
 dotnet --list-runtimes
 ```
 
-As you may have multiple versions of the runtime installed, make sure that .NET components with versions that start with 6.0 appear as part of the output.
+As you may have multiple versions of the runtime installed, make sure that .NET components with versions that start with 6.0 or higher appear as part of the output.
 
 Next, check the version of Azure Functions Core Tools with this command:
 
@@ -199,7 +199,7 @@ You can try out this implementation by running the code in [GitHub Codespaces](h
     | **Database name** | `Sales` |
     | **Container name** | `CartEvents` |
     | **Partition key path** | `/CartId` |
-    | **Throughput** | `400` (*Manual*) |
+    | **Throughput** | `1000` (*Autoscale*) |
 
 ## Get Azure Cosmos DB connection information
 
@@ -242,7 +242,7 @@ Make sure to replace `YOUR_PRIMARY_CONNECTION_STRING` with the `PRIMARY CONNECTI
 func start
 ```
 
-To trigger the function to generate events and send to the function, you can make HTTP calls with each CartEvent sent as JSON. Review and run Program.cs to see this in action.
+To trigger the function to generate events and send to the function, a console app makes HTTP calls with each CartEvent sent as JSON. Review and run Program.cs to see this in action.
 
 Open a new terminal and run the included Console App (Program.cs) which generates simple shopping cart events:
 ```bash
